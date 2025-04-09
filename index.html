@@ -3,272 +3,107 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Neon Calculator</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <title>Simple Calculator</title>
   <style>
-    :root {
-      --neon-pink: #ff2a6d;
-      --neon-blue: #05d9e8;
-      --neon-purple: #d300c5;
-      --neon-green: #00ff9d;
-      --dark-bg: #0d0221;
-    }
-    
     body {
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background: var(--dark-bg);
-      overflow: hidden;
-      color: white;
-    }
-    
-    .calculator-container {
-      position: relative;
-      z-index: 1;
+      background: #f8f9fa;
+      margin: 0;
     }
     
     .calculator {
-      background: rgba(13, 2, 33, 0.8);
+      background: white;
       padding: 30px;
-      border-radius: 20px;
-      box-shadow: 
-        0 0 15px var(--neon-pink),
-        0 0 30px var(--neon-blue),
-        inset 0 0 10px var(--neon-purple);
-      border: 2px solid var(--neon-blue);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       width: 320px;
-      backdrop-filter: blur(5px);
-      transform-style: preserve-3d;
-      transform: perspective(500px) rotateX(5deg);
-      transition: all 0.3s ease;
-    }
-    
-    .calculator:hover {
-      box-shadow: 
-        0 0 25px var(--neon-pink),
-        0 0 40px var(--neon-blue),
-        inset 0 0 15px var(--neon-purple);
-      transform: perspective(500px) rotateX(5deg) translateY(-5px);
     }
     
     h2 {
       text-align: center;
-      color: var(--neon-green);
-      font-family: 'Press Start 2P', cursive;
-      text-shadow: 0 0 10px var(--neon-green);
-      margin-bottom: 30px;
-      font-size: 1.5rem;
-      letter-spacing: 2px;
+      color: #2c3e50;
+      margin-bottom: 25px;
+      font-weight: 600;
     }
     
     .input-group {
-      display: flex;
-      flex-direction: column;
       margin-bottom: 20px;
     }
     
-    .input-row {
-      display: flex;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-    
-    .input-row label {
-      width: 120px;
-      color: var(--neon-blue);
-      text-shadow: 0 0 5px var(--neon-blue);
-      font-size: 0.9rem;
-    }
-    
     input[type="number"] {
-      flex: 1;
+      width: 100%;
       padding: 12px 15px;
-      background: rgba(5, 217, 232, 0.1);
-      border: 1px solid var(--neon-blue);
-      border-radius: 8px;
-      color: var(--neon-green);
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1rem;
-      box-shadow: 0 0 10px rgba(5, 217, 232, 0.3);
-      transition: all 0.3s ease;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 16px;
+      box-sizing: border-box;
+      transition: border 0.3s ease;
     }
     
     input[type="number"]:focus {
       outline: none;
-      border-color: var(--neon-pink);
-      box-shadow: 0 0 15px var(--neon-pink);
+      border-color: #3498db;
+      box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
     }
     
     .buttons {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      margin-bottom: 25px;
+      gap: 12px;
+      margin-bottom: 20px;
     }
     
     button {
       padding: 12px;
       border: none;
-      border-radius: 8px;
-      font-family: 'Press Start 2P', cursive;
-      font-size: 0.8rem;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 500;
       cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-      color: white;
+      transition: all 0.2s ease;
+      background-color: #f1f3f4;
+      color: #2c3e50;
     }
     
-    button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, 
-        var(--neon-pink), var(--neon-purple), var(--neon-blue));
-      opacity: 0.7;
-      z-index: -1;
-      transition: all 0.3s ease;
-    }
-    
-    button:hover::before {
-      opacity: 1;
-      transform: scale(1.05);
+    button:hover {
+      background-color: #e2e6ea;
     }
     
     button:active {
-      transform: scale(0.95);
-    }
-    
-    #add-btn {
-      background: rgba(255, 42, 109, 0.2);
-      border: 1px solid var(--neon-pink);
-      box-shadow: 0 0 10px rgba(255, 42, 109, 0.5);
-    }
-    
-    #subtract-btn {
-      background: rgba(5, 217, 232, 0.2);
-      border: 1px solid var(--neon-blue);
-      box-shadow: 0 0 10px rgba(5, 217, 232, 0.5);
-    }
-    
-    #multiply-btn {
-      background: rgba(211, 0, 197, 0.2);
-      border: 1px solid var(--neon-purple);
-      box-shadow: 0 0 10px rgba(211, 0, 197, 0.5);
-    }
-    
-    #divide-btn {
-      background: rgba(0, 255, 157, 0.2);
-      border: 1px solid var(--neon-green);
-      box-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+      transform: scale(0.98);
     }
     
     #result {
       text-align: center;
       padding: 15px;
-      background: rgba(5, 217, 232, 0.1);
-      border-radius: 8px;
-      border: 1px solid var(--neon-blue);
-      color: var(--neon-green);
-      font-size: 1.2rem;
+      background-color: #f8f9fa;
+      border-radius: 6px;
+      color: #2c3e50;
+      font-size: 18px;
       min-height: 20px;
-      box-shadow: inset 0 0 10px rgba(5, 217, 232, 0.3);
-      text-shadow: 0 0 5px var(--neon-green);
-      font-family: 'Press Start 2P', cursive;
-      letter-spacing: 1px;
-    }
-    
-    .particles {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-    }
-    
-    .particle {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: var(--neon-blue);
-      border-radius: 50%;
-      opacity: 0.6;
-      animation: float linear infinite;
-    }
-    
-    @keyframes float {
-      0% {
-        transform: translateY(0) translateX(0);
-        opacity: 0;
-      }
-      50% {
-        opacity: 0.8;
-      }
-      100% {
-        transform: translateY(-100vh) translateX(20px);
-        opacity: 0;
-      }
-    }
-    
-    .glow {
-      position: absolute;
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      background: radial-gradient(circle, var(--neon-blue), transparent 70%);
-      filter: blur(30px);
-      opacity: 0.3;
-      z-index: 0;
-    }
-    
-    .glow-1 {
-      top: 20%;
-      left: 10%;
-      background: radial-gradient(circle, var(--neon-pink), transparent 70%);
-    }
-    
-    .glow-2 {
-      bottom: 15%;
-      right: 10%;
-      background: radial-gradient(circle, var(--neon-purple), transparent 70%);
+      border: 1px solid #eee;
     }
   </style>
 </head>
 <body>
-  <div class="particles" id="particles"></div>
-  <div class="glow glow-1"></div>
-  <div class="glow glow-2"></div>
-  
-  <div class="calculator-container">
-    <div class="calculator">
-      <h2>NEON CALCULATOR</h2>
-      <div class="input-group">
-        <div class="input-row">
-          <label for="num1">FIRST NUMBER:</label>
-          <input type="number" id="num1" placeholder="0" />
-        </div>
-        <div class="input-row">
-          <label for="num2">SECOND NUMBER:</label>
-          <input type="number" id="num2" placeholder="0" />
-        </div>
-      </div>
-      <div class="buttons">
-        <button id="add-btn" onclick="calculate('add')">ADD +</button>
-        <button id="subtract-btn" onclick="calculate('subtract')">SUBTRACT -</button>
-        <button id="multiply-btn" onclick="calculate('multiply')">MULTIPLY ×</button>
-        <button id="divide-btn" onclick="calculate('divide')">DIVIDE ÷</button>
-      </div>
-      <p id="result">READY</p>
+  <div class="calculator">
+    <h2>Simple Calculator</h2>
+    <div class="input-group">
+      <input type="number" id="num1" placeholder="First number" />
+      <input type="number" id="num2" placeholder="Second number" />
     </div>
+    <div class="buttons">
+      <button onclick="calculate('add')">Add</button>
+      <button onclick="calculate('subtract')">Subtract</button>
+      <button onclick="calculate('multiply')">Multiply</button>
+      <button onclick="calculate('divide')">Divide</button>
+    </div>
+    <p id="result">Result will appear here</p>
   </div>
 
   <script>
@@ -276,85 +111,22 @@
       const a = parseFloat(document.getElementById('num1').value);
       const b = parseFloat(document.getElementById('num2').value);
       let result = '';
-      
-      // Play sound effect
-      const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3');
-      audio.volume = 0.3;
-      audio.play().catch(e => console.log("Audio play failed:", e));
 
       if (isNaN(a) || isNaN(b)) {
-        result = 'ENTER VALID NUMBERS!';
+        result = 'Please enter valid numbers';
       } else {
         switch (operation) {
-          case 'add': 
-            result = `${a} + ${b} = ${a + b}`; 
-            document.getElementById('result').style.textShadow = `0 0 10px var(--neon-pink)`;
-            break;
-          case 'subtract': 
-            result = `${a} - ${b} = ${a - b}`; 
-            document.getElementById('result').style.textShadow = `0 0 10px var(--neon-blue)`;
-            break;
-          case 'multiply': 
-            result = `${a} × ${b} = ${a * b}`; 
-            document.getElementById('result').style.textShadow = `0 0 10px var(--neon-purple)`;
-            break;
+          case 'add': result = `${a} + ${b} = ${a + b}`; break;
+          case 'subtract': result = `${a} - ${b} = ${a - b}`; break;
+          case 'multiply': result = `${a} × ${b} = ${a * b}`; break;
           case 'divide':
-            result = b !== 0 ? `${a} ÷ ${b} = ${a / b}` : 'CANNOT DIVIDE BY ZERO!';
-            document.getElementById('result').style.textShadow = `0 0 10px var(--neon-green)`;
+            result = b !== 0 ? `${a} ÷ ${b} = ${a / b}` : 'Cannot divide by zero';
             break;
         }
       }
 
       document.getElementById('result').innerText = result;
-      
-      // Reset text shadow animation
-      setTimeout(() => {
-        document.getElementById('result').style.textShadow = '0 0 5px var(--neon-green)';
-      }, 1000);
     }
-    
-    // Create floating particles
-    function createParticles() {
-      const particlesContainer = document.getElementById('particles');
-      const particleCount = 30;
-      
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        
-        // Random position
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.top = `${Math.random() * 100 + 100}%`;
-        
-        // Random size
-        const size = Math.random() * 3 + 1;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        
-        // Random color
-        const colors = ['var(--neon-pink)', 'var(--neon-blue)', 'var(--neon-purple)', 'var(--neon-green)'];
-        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-        
-        // Random animation duration
-        const duration = Math.random() * 20 + 10;
-        particle.style.animationDuration = `${duration}s`;
-        
-        // Random delay
-        particle.style.animationDelay = `${Math.random() * 10}s`;
-        
-        particlesContainer.appendChild(particle);
-      }
-    }
-    
-    // Initialize particles when page loads
-    window.onload = createParticles;
-    
-    // Add keypress event for Enter key
-    document.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        calculate('add');
-      }
-    });
   </script>
 </body>
 </html>
