@@ -96,7 +96,7 @@ Returns a/b. Raises `ValueError` if b=0
 
 
 ## 📧 Contact
-Your Name - rushil.alagh@gmail.com  
-Project Link: [https://github.com/RushilAlagh/python-calculator-ci.git](https://github.com/RushilAlagh/python-calculator-ci.git)
+Your Name - Sarthak Arora 
+Project Link: (https://github.com/ersarthak03/python-calculator-ci)
 
 ---
